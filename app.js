@@ -6,9 +6,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const Review = require("./models/review.js");
-const {listingSchema, reviewSchema} = require('./schema.js');
-
-
+const { listingSchema, reviewSchema } = require('./schema.js');
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -50,9 +48,8 @@ const re = function (req, res, next) {
   next();
 };
 
-
 app.get("/", (req, res) => {
-  res.redirect("/home"); 
+  res.redirect("/home");
 });
 
 app.get("/home", async (req, res) => {
@@ -60,36 +57,47 @@ app.get("/home", async (req, res) => {
   res.render("home/index.ejs", { allListings });
 });
 
-app.get("/home/download/:id",  async (req, res) => {
+app.get("/home/download/:id", async (req, res) => {
   const { id } = req.params;
-
   const listing = await Listing.findById(id).populate("reviews");
- 
   res.render("home/download.ejs", { listing });
-}); 
+});
+
+app.put("/api/listings/:id/incrementDownloadCount", async (req, res) => {
+  try {
+    const listing = await Listing.findById(req.params.id);
+    if (!listing) {
+      return res.status(404).send('Listing not found');
+    }
+
+    listing.downloadCount = (listing.downloadCount || 0) + 1;
+    await listing.save();
+
+    res.status(200).send('Download count incremented');
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Internal Server Error');
+  }
+});
 
 app.get("/home/show", (req, res) => {
   res.render("home/show.ejs");
 });
 
-
 // review post
 app.post("/home/download/:id/reviews", re, validateReview, async (req, res) => {
   const { id } = req.params;
-  const { rating, comment } = req.body.review; // Access 'review' object from req.body
+  const { rating, comment } = req.body.review;
 
   try {
-    // Find the listing
     const listing = await Listing.findById(id);
     if (!listing) {
       return res.status(404).send('Listing not found');
     }
 
-    // Create and save the new review
     const review = new Review({ rating, comment });
     await review.save();
 
-    // Add the review's ObjectId to the listing's reviews array
     listing.reviews.push(review._id);
     await listing.save();
 
@@ -99,7 +107,8 @@ app.post("/home/download/:id/reviews", re, validateReview, async (req, res) => {
     res.status(500).send('Server error');
   }
 });
-//review delete
+
+// review delete
 app.delete("/home/download/:id/reviews/:reviewId", async (req, res) => {
   const { id, reviewId } = req.params;
 
@@ -108,9 +117,6 @@ app.delete("/home/download/:id/reviews/:reviewId", async (req, res) => {
 
   res.redirect(`/home/download/${id}`);
 });
-
-
-
 
 app.get("/home/categories", (req, res) => {
   res.render("home/categories.ejs");

@@ -1,6 +1,4 @@
-<style>
 
-</style>
 <% layout('layouts/boilerplate') %>
 <div class="page">
   <div class="mains Container __top">
@@ -18,12 +16,15 @@
     </div>
 
     <div class="d-btn">
-      <a href="<%= listing.url %>">
-        <button type="submit">
+      <a href="<%= listing.url %>" id="download-button" data-id="<%= listing._id %>">
+        <button type="button" onclick="incrementDownloadCount('<%= listing._id %>')">
           DOWNLOAD &nbsp;<i class="bx bx-download" style="color: #ffffff"></i>
         </button>
       </a>
     </div>
+
+    
+
   </div>
 </div>
 <div class="article-p">
@@ -96,16 +97,14 @@
               <h3 class="app-info-title">Language</h3>
               <p class="app-info-description"><%= listing.languages[0] %></p>
             </li>
+            <li>
+              <h3 class="app-info-title">Total Downloads</h3>
+              <p class="app-info-description"><%= listing.downloadCount %></p>
+            </li>
+
           </ul>
         </div>
       </div>
-
-      <!-- 
-        <div class="ss">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ipsa voluptatum expedita a harum blanditiis
-          nulla fugiat natus facilis! Recusandae distinctio architecto nisi! Reiciendis tenetur ab iusto corporis
-          eos illo sed!
-        </div> -->
     </aside>
   </div>
 </div>
@@ -178,4 +177,3 @@
   </form>
   </div>
 </section>
-

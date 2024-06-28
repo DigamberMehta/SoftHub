@@ -64,7 +64,7 @@
     text-decoration: none;
 }
 
-.d-btn [type="submit"] {
+.d-btn [type="button"] {
     border: white;
     border-radius: 15px;
     width: 250px;
