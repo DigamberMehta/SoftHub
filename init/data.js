@@ -1,6 +1,6 @@
 const sampleListings = [
   {
-    title: "Adobe Photoshop CC",
+    title: "Adobe",
     description: {
       whatItIs:
         "Adobe Photoshop is a raster graphics editor developed and published by Adobe Inc. for Windows and macOS. It was originally created in 1988 by Thomas and John Knoll. Photoshop is widely used by professional graphic designers, digital artists, and photographers for editing and manipulating images. It offers a wide range of features, including support for layers, filters, and effects, as well as advanced selection tools, including Content-Aware Fill and Select and Mask.",
@@ -15,6 +15,7 @@ const sampleListings = [
         "Adobe places a high priority on security across its suite of software and services, implementing robust measures to protect user data and ensure secure transactions. Adobe employs advanced encryption technologies to safeguard sensitive information, both in transit and at rest. Regular security audits and penetration testing are conducted to identify and mitigate vulnerabilities. Adobe's commitment to security extends to compliance with industry standards and regulations, such as GDPR and CCPA, ensuring user privacy and data protection. Additionally, Adobe provides comprehensive security features, including multi-factor authentication, to prevent unauthorized access. By integrating security best practices into its development lifecycle, Adobe aims to deliver secure and reliable products to its global user base.",
       ],
     },
+    shortdescription: "Adobe Photoshop is a raster graphics editor developed  by Adobe Inc",
     image: "https://yt3.googleusercontent.com/ytc/AIdro_kVbQ58iw2xkkXIvb96zHcq9mhYJnBDkVuytSiIVDb2cpQ0=s176-c-k-c0x00ffffff-no-rj",
     size: 2.1,
     url: "https://get.adobe.com/reader/download?os=Windows+10&name=Reader+2024.002.20857+English+Windows%2864Bit%29&lang=en&nativeOs=Windows+10&accepted=mss%2Cgoc%2Ccr&declined=&preInstalled=&site=landing",
@@ -69,6 +70,7 @@ const sampleListings = [
         "Microsoft Office 365 prioritizes security by incorporating comprehensive measures to protect user data and ensure safe collaboration. Utilizing advanced encryption for data in transit and at rest, Office 365 safeguards sensitive information from unauthorized access. Microsoft's commitment to security includes regular audits, continuous monitoring, and adherence to global standards such as GDPR and ISO/IEC 27001. Multi-factor authentication and conditional access policies enhance account security, while built-in threat protection services detect and mitigate cyber threats. Office 365's compliance with various regulatory frameworks ensures data privacy and protection, making it a reliable choice for businesses and individuals seeking secure, cloud-based productivity solutions.",
       ],
     },
+    shortdescription: "Microsoft Office 365 is a cloud-based productivity suite developed by Microsoft",
     image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Microsoft_365_%282022%29.svg/768px-Microsoft_365_%282022%29.svg.png",
     size: 1.5,
     url: "https://go.microsoft.com/fwlink/?linkid=2264705&clcid=0x409&culture=en-us&country=us",
@@ -122,6 +124,7 @@ const sampleListings = [
         "Google Workspace prioritizes security by incorporating comprehensive measures to protect user data and ensure safe collaboration. Utilizing advanced encryption for data in transit and at rest, Google Workspace safeguards sensitive information from unauthorized access. Google's commitment to security includes regular audits, continuous monitoring, and adherence to global standards such as GDPR and ISO/IEC 27001. Multi-factor authentication and conditional access policies enhance account security, while built-in threat protection services detect and mitigate cyber threats.",
       ],
     },
+    shortdescription: "Google Workspace is a cloud-based productivity suite developed by Google",
     image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbqxB37HobSQL9mtgDqpGeq5He6mTe917MTg&s",
     size: 1.2,
     url: "https://tools.google.com/dlpage/gssmo/thankyou.html",
@@ -178,6 +181,7 @@ const sampleListings = [
         "VS Code prioritizes security by incorporating comprehensive measures to protect user data and ensure safe coding practices. With built-in support for secure protocols such as HTTPS and SSH, VS Code ensures that data in transit is encrypted and protected from unauthorized access. Additionally, VS Code's extensions are thoroughly vetted and validated to prevent malicious code from being installed, and users can easily manage and update their extensions to ensure they have the latest security patches. Furthermore, VS Code's integrated terminal and command palette provide secure ways to execute commands and scripts, reducing the risk of command injection attacks. With regular security updates and a commitment to transparency, VS Code provides a secure environment for developers to write, debug, and deploy their code with confidence",
       ],
     },
+    shortdescription: "VS Code, short for Visual Studio Code, is a popular source code editor developed by Microsoft",
     image: "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/visual-studio-code-icon.png",
     size: 700,
     url: "https://code.visualstudio.com/docs/?dv=win64user",

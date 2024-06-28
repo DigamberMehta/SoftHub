@@ -149,20 +149,26 @@
         </thead>
         <tbody>
 
-          <tr class="top-download-items"
-            onclick="window.location.href='https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B2357672F-DA59-2DE7-4D50-A719AAEE7603%7D%26lang%3Den%26browser%3D4%26usagestats%3D1%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dx64-stable-statsdef_1%26brand%3DJJTC%26installdataindex%3Dempty/update2/installers/ChromeSetup.exe';"
-            style="cursor: pointer;">
-            <td class="item-rank">1</td>
-            <td class="item-image"><img src="main-assests/app-icon/chrome.svg"
-                alt="App 1 Image" width="50"
-                height="50"></td>
-            <td class="item-name">chrome</td>
-            <td class="item-size">160MB</td>
-            <td class="item-rating">4.5</td>
-            <td class="item-downloads">1,000,000</td>
-            <td><button class="item-download-btn"
-                style="margin-left: 15px;">Download</button></td>
-          </tr>
+          <% for (let i = 0; i < allListings.length; i++) { %>
+            <% let listing = allListings[i]; %>
+            <% if (listing.platform.includes('Windows')) { %>
+              <tr class="top-download-items"
+                  onclick="window.location.href='<%= listing.url %>';"
+                  style="cursor: pointer;">
+                <td class="item-rank"><%= i + 1 %></td>
+                <td class="item-image"><img src="<%= listing.image %>"
+                    alt="<%= listing.title %> Image" width="50"
+                    height="50"></td>
+                <td class="item-name"><%= listing.title %></td>
+                <td class="item-size"><%= listing.size %></td>
+                <td class="item-rating"><%= listing.rating %></td>
+                <td class="item-downloads"><%= listing.downloadCount %></td>
+                <td><button class="item-download-btn" style="margin-left: 15px;" onclick="incrementDownloadCount('<%= listing._id %>')">Download</button></td>
+              </tr>
+            <% } %>
+          <% } %>
+      
+          
 
         </tbody>
       </table>
@@ -249,21 +255,26 @@
     <div class="card-container">
       <div class="card-container-list">
 <!-- card -->
-        <div class="card-list">
-          <div class="card-app">
-            <a href="https://bit.ly/BGMI_AppStore">
-              <div class="card-app-img">
-                <img src="main-assests/card-img/pubg.webp" alt="PUBG Image">
-              </div>
-            </a>
+<% for(let listing of allListings) { %>
+  <% if (listing.title.length <= 10) { %>
+    <div class="card-list">
+      <div class="card-app">
+        <a href="https://bit.ly/BGMI_AppStore">
+          <div class="card-app-img">
+            <img src="<%= listing.image %>" alt="<%= listing.title %>">
           </div>
-          <div class="card-details">
-            <div class="card-name">
-              <h3>PUBG</h3>
-            </div>
-            <div class="card-rating">4.5</div>
-          </div>
+        </a>
+      </div>
+      <div class="card-details">
+        <div class="card-name">
+          <h3><%= listing.title %></h3>
         </div>
+        <div class="card-rating"><%= listing.rating %></div>
+      </div>
+    </div>
+  <% } %>
+<% } %>
+
         <!-- card -->
 
       </div>
@@ -291,9 +302,9 @@
             <% for(let listing of allListings) { %>
               <div class="box item1">
                 <a href="/home/download/<%= listing._id %>" class="app">
-                  <img src="main-assests/app-icon/chrome.svg" alt="CHROME">
+                  <img src="<%= listing.image %>" alt="CHROME">
                   <p class="name" style="text-align: center;"><%= listing.title %></p>
-                  <p class="description"><%= listing.description %></p>
+                  <p class="description"><%= listing.shortdescription %></p>
                 </a>
               </div>
             <% } %>

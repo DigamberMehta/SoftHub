@@ -709,8 +709,8 @@ th {
 }
 
 .card-app {
-  width: 200px;
-  height: 200px;
+  width: 160px;
+  height: 160px;
   border: 1px solid rgb(200, 200, 200);
   display: flex;
   justify-content: center;
@@ -720,8 +720,8 @@ th {
 
 
 .card-container-list a img{
-  width: 175px;
-  height: 175px;
+  width: 140px;
+  height: 140px;
   padding: 10px;
   border-radius: 25%;
 }
@@ -730,10 +730,10 @@ th {
 display: flex;
 justify-content: space-between;
 }
-
+/* 
 .card-name{
   
-}
+} */
 
 .card-rating::after {
   content: '\2605'; /* Unicode character for a solid star */
@@ -893,6 +893,7 @@ div::-webkit-scrollbar{
   column-gap: 10px;
   transition: transform 0.5s ease;
   overflow: visible;
+  
 }
 
 .box {
@@ -914,8 +915,8 @@ div::-webkit-scrollbar{
 }
 
 .box .app img {
-  width: 85px;
-  height: 85px;
+  width: 80px;
+  height: 80px;
   object-fit: contain;
   display: inline-block;
   padding-top: 18px;
@@ -928,13 +929,13 @@ div::-webkit-scrollbar{
   margin: 0;
   font-weight: 600;
   padding-top: 4px;
-  font-size: 18px;
+  font-size: 15px;
 }
 
 .box .app .description {
   font-family: "geomanistregular", sans-serif;
   color: #7f949a;
-  font-size: 12px;
+  font-size: 10px;
   margin-top: 5px;
   display: -webkit-box;
   -webkit-line-clamp: 3;

@@ -12,6 +12,7 @@ const ListingSchema = new mongoose.Schema({
     keyFeatures: [String], // Array of features
     securityFeatures: [String], // Array of features
   },
+  shortdescription: String,
 
   image: String,
 
