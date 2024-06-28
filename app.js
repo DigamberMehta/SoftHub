@@ -5,7 +5,9 @@ const Listing = require("./models/listing");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const Review = require("./models/review");
+const Review = require("./models/review.js");
+const {listingSchema, reviewSchema} = require('./schema.js');
+
 
 
 app.set("view engine", "ejs");
@@ -24,6 +26,29 @@ async function main() {
   await mongoose.connect(MONGO_URI);
 }
 
+const validateListing = (req, res, next) => {
+  const { error } = listingSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(",");
+    throw new Error(msg);
+  } else {
+    next();
+  }
+};
+
+const validateReview = (req, res, next) => {
+  const { error } = reviewSchema.validate(req.body);
+  if (error) {
+    const msg = error.details.map((el) => el.message).join(",");
+    throw new Error(msg);
+  } else {
+    next();
+  }
+};
+const re = function (req, res, next) {
+  console.log(req.body.review);
+  next();
+};
 
 
 app.get("/", (req, res) => {
@@ -38,7 +63,7 @@ app.get("/home", async (req, res) => {
 app.get("/home/download/:id",  async (req, res) => {
   const { id } = req.params;
 
-  const listing = await Listing.findById(id);
+  const listing = await Listing.findById(id).populate("reviews");
  
   res.render("home/download.ejs", { listing });
 }); 
@@ -47,9 +72,11 @@ app.get("/home/show", (req, res) => {
   res.render("home/show.ejs");
 });
 
-app.post("/home/download/:id/reviews", async (req, res) => {
+
+// review post
+app.post("/home/download/:id/reviews", re, validateReview, async (req, res) => {
   const { id } = req.params;
-  const { rating, comment } = req.body;
+  const { rating, comment } = req.body.review; // Access 'review' object from req.body
 
   try {
     // Find the listing
@@ -71,6 +98,15 @@ app.post("/home/download/:id/reviews", async (req, res) => {
     console.error('Error adding review:', error);
     res.status(500).send('Server error');
   }
+});
+//review delete
+app.delete("/home/download/:id/reviews/:reviewId", async (req, res) => {
+  const { id, reviewId } = req.params;
+
+  await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+  await Review.findByIdAndDelete(reviewId);
+
+  res.redirect(`/home/download/${id}`);
 });
 
 

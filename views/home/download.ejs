@@ -1,42 +1,6 @@
 <style>
-  ul.Features {
-    list-style-type: none;
-    padding: 0;
-    margin: 0;
-  }
 
-  ul.Features .description {
-    background-color: #f9f9f9;
-    /* border: 1px solid #ddd;*/
-    border-radius: 4px;
-    margin: 5px 0;
-    padding: 10px;
-    font-size: 16px;
-    color: #333;
-    cursor: default !important;
-  }
-
-  ul.Features .description:hover {
-    background-color: #e9e9e9;
-    border-color: #ccc;
-  }
-  .app-icon {
-    width: 100px; /* Set your desired width */
-    height: 100px; /* Set your desired height */
-    overflow: hidden; /* Ensures content does not overflow */
-    position: relative; /* Allows for absolute positioning of child elements */
-  }
-
-  .app-icon img.download-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures the image covers the box while maintaining aspect ratio */
-    position: absolute; /* Ensures the image fills the parent container */
-    top: 0;
-    left: 0;
-  }
 </style>
-
 <% layout('layouts/boilerplate') %>
 <div class="page">
   <div class="mains Container __top">
@@ -163,11 +127,11 @@
           <div class="rating-box1">
             <div class="rating">
               <img
-                src="images/whatsapp.svg"
+                src="<%= listing.image %>"
                 alt="Application Logo"
                 class="app-logo"
               />
-             <input type="range" min="1" max="5" id="ratng" name="rating">
+             <input type="range" min="1" max="5" id="ratng" name="review[rating]">
 
             </div>
           </div>
@@ -176,22 +140,42 @@
         <div class="review-section">
           <div class="review-a">
             <div class="review">
-              <textarea placeholder="Write your review..." class="review-textarea" name="comment"></textarea>
+              <textarea placeholder="Write your review..." class="review-textarea" name="review[comment]" id="comment" required></textarea>
+              <div id="comment-error" class="error-message">Please write a review.</div>
             </div>
           </div>
         </div>
-
         <div class="submit-section">
           <div class="submit-a">
             <div class="submit">
-              <button onclick="submitReview()" class="submit-button">
+              <button class="submit-button">
                 Submit
               </button>
             </div>
           </div>
         </div>
+        
+        <div class="all-reviews">
+          <h4>All Reviews</h4>
+          <div class="review-cards">
+            <% for(let review of listing.reviews) { %>
+              <div class="review-card">
+                <div class="card-content">
+                  <h5 class="card-title">Rating: <%= review.rating %></h5>
+                  <p class="card-text"><%= review.comment %></p>
+                  <form action="/home/download/<%= listing.id%>/reviews/<%= review._id %>?_method=DELETE" method="POST">
+                    <button class="review-delete">Delete</button>
+                  </form>
+                </div>
+              </div>
+            <% } %>
+          </div>
+        </div>
+        
+        
       </div>
     </div>
   </form>
   </div>
 </section>
+

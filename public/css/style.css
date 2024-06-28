@@ -1088,6 +1088,7 @@ div::-webkit-scrollbar{
   background: linear-gradient(230deg, #00a3e0 14%, #3af0e9);
   padding: 20px 0;
   position: relative;
+  margin-top: 4rem;
 }
 
 .footer::before {
