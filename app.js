@@ -5,8 +5,9 @@ const Listing = require("./models/listing");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const Review = require("./models/review.js");
-const { listingSchema, reviewSchema } = require('./schema.js');
+const listings = require("./routes/listing.js");
+const reviews = require("./routes/review.js");
+
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -23,45 +24,14 @@ main()
 async function main() {
   await mongoose.connect(MONGO_URI);
 }
-
-const validateListing = (req, res, next) => {
-  const { error } = listingSchema.validate(req.body);
-  if (error) {
-    const msg = error.details.map((el) => el.message).join(",");
-    throw new Error(msg);
-  } else {
-    next();
-  }
-};
-
-const validateReview = (req, res, next) => {
-  const { error } = reviewSchema.validate(req.body);
-  if (error) {
-    const msg = error.details.map((el) => el.message).join(",");
-    throw new Error(msg);
-  } else {
-    next();
-  }
-};
-const re = function (req, res, next) {
-  console.log(req.body.review);
-  next();
-};
+  
 
 app.get("/", (req, res) => {
   res.redirect("/home");
 });
 
-app.get("/home", async (req, res) => {
-  const allListings = await Listing.find({});
-  res.render("home/index.ejs", { allListings });
-});
-
-app.get("/home/download/:id", async (req, res) => {
-  const { id } = req.params;
-  const listing = await Listing.findById(id).populate("reviews");
-  res.render("home/download.ejs", { listing });
-});
+app.use("/home", listings);
+app.use("/home/download/:id/reviews", reviews);
 
 app.put("/api/listings/:id/incrementDownloadCount", async (req, res) => {
   try {
@@ -80,47 +50,7 @@ app.put("/api/listings/:id/incrementDownloadCount", async (req, res) => {
   }
 });
 
-app.get("/home/show", (req, res) => {
-  res.render("home/show.ejs");
-});
 
-// review post
-app.post("/home/download/:id/reviews", re, validateReview, async (req, res) => {
-  const { id } = req.params;
-  const { rating, comment } = req.body.review;
-
-  try {
-    const listing = await Listing.findById(id);
-    if (!listing) {
-      return res.status(404).send('Listing not found');
-    }
-
-    const review = new Review({ rating, comment });
-    await review.save();
-
-    listing.reviews.push(review._id);
-    await listing.save();
-
-    res.redirect(`/home/download/${id}`);
-  } catch (error) {
-    console.error('Error adding review:', error);
-    res.status(500).send('Server error');
-  }
-});
-
-// review delete
-app.delete("/home/download/:id/reviews/:reviewId", async (req, res) => {
-  const { id, reviewId } = req.params;
-
-  await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
-  await Review.findByIdAndDelete(reviewId);
-
-  res.redirect(`/home/download/${id}`);
-});
-
-app.get("/home/categories", (req, res) => {
-  res.render("home/categories.ejs");
-});
 
 const port = 3000;
 app.listen(port, () => {

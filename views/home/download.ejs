@@ -64,16 +64,7 @@
 
             <li>
               <h3 class="app-info-title">Version</h3>
-              <select class="app-info-description" id="version-select">
-                <option value="1.0">1.0</option>
-                <option value="2.0">2.0</option>
-                <option value="3.0">3.0</option>
-                <option value="4.0">4.0</option>
-                <option value="5.0">5.0</option>
-                <option value="6.0">6.0</option>
-                <option value="7.0">7.0</option>
-                <option value="8.0">8.0</option>
-              </select>
+              <p class="app-info-description"><%= listing.version%></p>
             </li>
 
             <li>
@@ -82,16 +73,24 @@
             </li>
 
             <li>
+              <h3 class="app-info-title">Free/Paid</h3>
+              <p class="app-info-description">
+                <% if (listing.isFree) { %>
+                  Free
+                <% } else { %>
+                  Paid
+                <% } %>
+              </p>
+            </li>
+            
+
+            <li>
               <h3 class="app-info-title">Platform</h3>
               <% for(let platform of listing.platform) { %>
               <p class="app-info-description"><%= platform %></p>
               <% } %>
             </li>
 
-            <li>
-              <h3 class="app-info-title">Latest Update</h3>
-              <p class="app-info-description"><%= listing.version %></p>
-            </li>
 
             <li>
               <h3 class="app-info-title">Language</h3>
