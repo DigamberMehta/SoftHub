@@ -84,6 +84,9 @@ const ListingSchema = new mongoose.Schema({
 
   // Version control
   schemaVersion: Number, // Track schema changes
+  reviews: [
+    { type: Schema.Types.ObjectId, ref: "Review" }
+]
 });
 
 const Listing = mongoose.model("Listing", ListingSchema);

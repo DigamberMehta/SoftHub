@@ -148,6 +148,7 @@
 
 <section class="rating-section">
   <div class="rate-review-container">
+    <form action="/home/download/<%= listing.id%>/reviews" method="POST">
     <div class="rating-container">
       <div class="rating-review-content">
         <div class="rate-heading">
@@ -166,15 +167,8 @@
                 alt="Application Logo"
                 class="app-logo"
               />
-              <div class="app-rating">
-                <div class="rating-stars">
-                  <span class="star" data-rating="1">&#9733;</span>
-                  <span class="star" data-rating="2">&#9733;</span>
-                  <span class="star" data-rating="3">&#9733;</span>
-                  <span class="star" data-rating="4">&#9733;</span>
-                  <span class="star" data-rating="5">&#9733;</span>
-                </div>
-              </div>
+             <input type="range" min="1" max="5" id="ratng" name="rating">
+
             </div>
           </div>
         </div>
@@ -182,10 +176,7 @@
         <div class="review-section">
           <div class="review-a">
             <div class="review">
-              <textarea
-                placeholder="Write your review..."
-                class="review-textarea"
-              ></textarea>
+              <textarea placeholder="Write your review..." class="review-textarea" name="comment"></textarea>
             </div>
           </div>
         </div>
@@ -201,5 +192,6 @@
         </div>
       </div>
     </div>
+  </form>
   </div>
 </section>

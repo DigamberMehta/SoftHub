@@ -5,6 +5,8 @@ const Listing = require("./models/listing");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
+const Review = require("./models/review");
+
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -41,13 +43,35 @@ app.get("/home/download/:id",  async (req, res) => {
   res.render("home/download.ejs", { listing });
 }); 
 
-
-
-
 app.get("/home/show", (req, res) => {
   res.render("home/show.ejs");
 });
 
+app.post("/home/download/:id/reviews", async (req, res) => {
+  const { id } = req.params;
+  const { rating, comment } = req.body;
+
+  try {
+    // Find the listing
+    const listing = await Listing.findById(id);
+    if (!listing) {
+      return res.status(404).send('Listing not found');
+    }
+
+    // Create and save the new review
+    const review = new Review({ rating, comment });
+    await review.save();
+
+    // Add the review's ObjectId to the listing's reviews array
+    listing.reviews.push(review._id);
+    await listing.save();
+
+    res.redirect(`/home/download/${id}`);
+  } catch (error) {
+    console.error('Error adding review:', error);
+    res.status(500).send('Server error');
+  }
+});
 
 
 
