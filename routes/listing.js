@@ -25,7 +25,7 @@ const Listing = require("../models/listing");
     const listing = await Listing.findById(id).populate("reviews");
     res.render("home/download.ejs", { listing });
   });
-  
 
+  
   
   module.exports = router;

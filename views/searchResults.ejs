@@ -1,0 +1,104 @@
+<% layout('layouts/boilerplate') %>
+
+<style>
+  .container {
+    width: 80vw;
+    margin: 0 auto;
+    padding: 20px;
+  }
+  .results {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .listing {
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 20px;
+    width: 250px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .listing h2 {
+    margin-top: 0;
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+  }
+
+  .listing p {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #666;
+  }
+
+  .listing p span {
+    font-weight: bold;
+    color: #333;
+  }
+
+  .image-box {
+    display: flex;
+    align-items: center;
+    width: 120px;
+    height: 120px;
+  }
+  .image-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px 10px 0 0;
+    margin-right: 102px;
+    padding-bottom: 1rem;
+  }
+
+  .no-results {
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+    margin: 20px;
+  }
+  .short-description{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+  }
+  .for{
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size:  1.5rem;
+  }
+</style>
+<div class="container">
+<div class="search-result">
+<div class="for">
+  <h1>Results Related to "<%= searchTerm %>" :</h1>
+</div>
+<div class="results">
+  
+  <% if (results.length > 0) { %> <% results.forEach(result => { %>
+  <div class="listing">
+    <h2><%= result.title %></h2>
+    <div class="short-description">
+      <p><span> Description:</span> <%= result.shortdescription %></p>
+    </div>
+    <div class="image-box">
+      <img src="<%= result.image %>" alt="<%= result.title %>" />
+    </div>
+    <p><span>Size:</span> <%= result.size %> MB</p>
+    <p><span>Category:</span> <%= result.category %></p>
+    <p><span>Platform:</span> <%= result.platform.join(', ') %></p>
+    <p><span>Rating:</span> <%= result.rating %></p>
+    <p><span>Downloads:</span> <%= result.downloadCount %></p>
+    <p>
+      <span>Price:</span> <%= result.isFree ? 'Free' : `${result.price.amount}
+      ${result.price.currency}` %>
+    </p>
+  </div>
+  <% }); %> <% } else { %>
+  <p class="no-results">No results found.</p>
+  <% } %>
+</div>
+</div></div>
