@@ -16,6 +16,7 @@ const Listing = require("../models/listing");
 
   
   router.get("/", async (req, res) => {
+    
     const allListings = await Listing.find({});
     res.render("home/index.ejs", { allListings });
   });
