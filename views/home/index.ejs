@@ -149,24 +149,26 @@
         </thead>
         <tbody>
 
-          <% for (let i = 0; i < allListings.length; i++) { %>
-            <% let listing = allListings[i]; %>
-            <% if (listing.platform.includes('Windows')) { %>
-              <tr class="top-download-items"
-                  onclick="window.location.href='<%= listing.url %>';"
-                  style="cursor: pointer;">
-                <td class="item-rank"><%= i + 1 %></td>
-                <td class="item-image"><img src="<%= listing.image %>"
-                    alt="<%= listing.title %> Image" width="50"
-                    height="50"></td>
-                <td class="item-name"><%= listing.title %></td>
-                <td class="item-size"><%= listing.size %></td>
-                <td class="item-rating"><%= listing.rating %></td>
-                <td class="item-downloads"><%= listing.downloadCount %></td>
-                <td><button class="item-download-btn" style="margin-left: 15px;" onclick="incrementDownloadCount('<%= listing._id %>')">Download</button></td>
-              </tr>
-            <% } %>
-          <% } %>
+          <% allListings.sort((a, b) => b.downloadCount - a.downloadCount); %>
+<% for (let i = 0; i < allListings.length; i++) { %>
+  <% let listing = allListings[i]; %>
+  <% if (listing.platform.includes('Windows')) { %>
+    <tr class="top-download-items"
+        onclick="window.location.href='<%= listing.url %>';"
+        style="cursor: pointer;">
+      <td class="item-rank"><%= i + 1 %></td>
+      <td class="item-image"><img src="<%= listing.image %>"
+          alt="<%= listing.title %> Image" width="50"
+          height="50"></td>
+      <td class="item-name"><%= listing.title %></td>
+      <td class="item-size"><%= listing.size %></td>
+      <td class="item-rating"><%= listing.rating %></td>
+      <td class="item-downloads"><%= listing.downloadCount %></td>
+      <td><button class="item-download-btn" style="margin-left: 15px;" onclick="incrementDownloadCount('<%= listing._id %>')">Download</button></td>
+    </tr>
+  <% } %>
+<% } %>
+
       
           
 
@@ -193,20 +195,26 @@
         </thead>
         <tbody>
 
-          <tr class="top-download-items"
-            onclick="window.location.href='https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B2357672F-DA59-2DE7-4D50-A719AAEE7603%7D%26lang%3Den%26browser%3D4%26usagestats%3D1%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dx64-stable-statsdef_1%26brand%3DJJTC%26installdataindex%3Dempty/update2/installers/ChromeSetup.exe';"
-            style="cursor: pointer;">
-            <td class="item-rank">1</td>
-            <td class="item-image"><img src="main-assests/app-icon/Facebook.svg"
-                alt="App 1 Image" width="50"
-                height="50"></td>
-            <td class="item-name">Facebook</td>
-            <td class="item-size">120MB</td>
-            <td class="item-rating">4.9</td>
-            <td class="item-downloads">10,000</td>
-            <td><button class="item-download-btn"
-                style="margin-left: 15px;">Download</button></td>
-          </tr>
+          <% allListings.sort((a, b) => b.downloadCount - a.downloadCount); %>
+          <% for (let i = 0; i < allListings.length; i++) { %>
+            <% let listing = allListings[i]; %>
+            <% if (listing.platform.includes('iOS')) { %>
+              <tr class="top-download-items"
+                  onclick="window.location.href='<%= listing.url %>';"
+                  style="cursor: pointer;">
+                <td class="item-rank"><%= i + 1 %></td>
+                <td class="item-image"><img src="<%= listing.image %>"
+                    alt="<%= listing.title %> Image" width="50"
+                    height="50"></td>
+                <td class="item-name"><%= listing.title %></td>
+                <td class="item-size"><%= listing.size %></td>
+                <td class="item-rating"><%= listing.rating %></td>
+                <td class="item-downloads"><%= listing.downloadCount %></td>
+                <td><button class="item-download-btn" style="margin-left: 15px;" onclick="incrementDownloadCount('<%= listing._id %>')">Download</button></td>
+              </tr>
+            <% } %>
+          <% } %>
+
         </tbody>
       </table>
     </div>
@@ -230,21 +238,26 @@
         </thead>
         <tbody>
 
-          <tr class="top-download-items"
-            onclick="window.location.href='https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B2357672F-DA59-2DE7-4D50-A719AAEE7603%7D%26lang%3Den%26browser%3D4%26usagestats%3D1%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dx64-stable-statsdef_1%26brand%3DJJTC%26installdataindex%3Dempty/update2/installers/ChromeSetup.exe';"
-            style="cursor: pointer;">
-            <td class="item-rank">1</td>
-            <td class="item-image"><img
-                src="main-assests/app-icon/Google_Meet.svg" alt="App 1 Image"
-                width="50"
-                height="50"></td>
-            <td class="item-name">Google Meet</td>
-            <td class="item-size">130MB</td>
-            <td class="item-rating">4.6</td>
-            <td class="item-downloads">1,000,000</td>
-            <td><button class="item-download-btn"
-                style="margin-left: 15px;">Download</button></td>
-          </tr>
+          <% allListings.sort((a, b) => b.downloadCount - a.downloadCount); %>
+          <% for (let i = 0; i < allListings.length; i++) { %>
+            <% let listing = allListings[i]; %>
+            <% if (listing.platform.includes('Android')) { %>
+              <tr class="top-download-items"
+                  onclick="window.location.href='<%= listing.url %>';"
+                  style="cursor: pointer;">
+                <td class="item-rank"><%= i + 1 %></td>
+                <td class="item-image"><img src="<%= listing.image %>"
+                    alt="<%= listing.title %> Image" width="50"
+                    height="50"></td>
+                <td class="item-name"><%= listing.title %></td>
+                <td class="item-size"><%= listing.size %></td>
+                <td class="item-rating"><%= listing.rating %></td>
+                <td class="item-downloads"><%= listing.downloadCount %></td>
+                <td><button class="item-download-btn" style="margin-left: 15px;" onclick="incrementDownloadCount('<%= listing._id %>')">Download</button></td>
+              </tr>
+            <% } %>
+          <% } %>
+
         </tbody>
       </table>
     </div>
