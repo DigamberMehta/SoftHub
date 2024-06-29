@@ -7,7 +7,7 @@
   <section class="side-bar-main">
 
     <div class="side-bar-signin">
-      <a href="signin/sign-in.html">
+      <a href="/login">
         <img src="main-assests/user.svg" alt>
         <div class="sign-in-text">
           <h3>Sign or Login</h3>
@@ -212,11 +212,22 @@
     </ul>
     </div>
     <!-- <button id="dark-mode-toggle">dark mode </button> -->
+     <% if (!currentUser) { %> 
     <div class="sign-in">
-      <a href="signin/sign-in.html" target="_blank" class>
+      <a href="/login" target="_blank" class>
         <button class="signin-button">Sign In</button>
       </a>
     </div>
+    <% } %>
+
+     <% if (currentUser) { %> 
+    <div class="sign-in">
+      <a href="/logout" >
+        <button class="signin-button">Logout</button>
+      </a>
+    </div>
+    <% } %>
+
     <div class="open-search">
       <button type="button"><i class="fa fa-search"></i></button>
     </div>

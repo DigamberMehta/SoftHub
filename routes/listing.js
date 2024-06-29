@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Listing = require("../models/listing");
+const { isLoggedIn } = require("../middleware");
 // const { listingSchema, reviewSchema } = require('../schema.js');
 // const validateListing = (req, res, next) => {
 //     const { error } = listingSchema.validate(req.body);
@@ -23,7 +24,7 @@ const Listing = require("../models/listing");
   
   router.get("/download/:id", async (req, res) => {
     const { id } = req.params;
-    const listing = await Listing.findById(id).populate("reviews");
+    const listing = await Listing.findById(id).populate({path : "reviews", populate : {path : "author"}});
     res.render("home/download.ejs", { listing });
   });
 

@@ -5,10 +5,14 @@ const Listing = require("./models/listing");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-const listings = require("./routes/listing.js");
-const reviews = require("./routes/review.js");
 const bodyParser = require('body-parser');
-const searchRouter = require('./routes/listing.js')
+const session = require('express-session');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
+const User = require('./models/user.js');
+const listingRouter = require("./routes/listing.js");
+const reviewRouter = require("./routes/review.js");
+const userRouter = require("./routes/user.js");
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -27,9 +31,47 @@ main()
 async function main() {
   await mongoose.connect(MONGO_URI);
 }
-  
-app.use("/home", listings);
-app.use("/home/download/:id/reviews", reviews);
+
+const sessionOptions = {
+  secret: 'mysecret',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    httpOnly: true,
+    expires: Date.now() + 1000 * 60 * 60 * 24 * 30, // 30 days
+    maxAge: 1000 * 60 * 60 * 24 * 30
+  }
+};
+
+app.use(session(sessionOptions));
+
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
+
+
+app.get("/demo", async (req, res) => {
+  let fakeUser = new User({
+     email: 'demo@gmail.com',
+     username: 'demo'
+  });
+let register =  await User.register(fakeUser, 'demoz');
+res.send(register);
+
+
+}
+);
+
+app.use("/home", listingRouter);
+app.use("/home/download/:id/reviews", reviewRouter);
+app.use("/", userRouter);
 
 app.get("/", (req, res) => {
   res.redirect("/home");

@@ -1,5 +1,0 @@
-  <ul>
-     <% for(let listing of allListings) { %>
-      <li><%= listing.title %></li>
-     <% } %>
-    </ul>
