@@ -118,6 +118,19 @@ app.get('/search/results', wrapAsync( async (req, res) => {
   }
 }));
 
+app.get('/home/category/:category', wrapAsync(async (req, res) => {
+  try {
+    const category = req.params.category;
+    // Fetch listings for the specific category
+    const listings = await Listing.find({ category: category });
+
+    // Render the category page with the fetched listings
+    res.render('home/category', { category, listings });
+  } catch (error) {
+    console.error('Error fetching listings for category:', error);
+    res.status(500).send('Internal Server Error');
+  }
+}));
 
 
 

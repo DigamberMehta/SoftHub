@@ -1,0 +1,148 @@
+<style>
+/* Container for the entire category page */
+.category-page-container {
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+/* Heading for the category */
+.category-heading {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+/* Container for the list of applications */
+.category-application-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  /* Removed justify-content: center to align items to the left */
+}
+
+/* Card for each application */
+.category-app-card {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  flex: 1 1 calc(100% / 6 - 20px); /* Default to 6 items per row minus gap */
+  max-width: calc(100% / 6 - 20px); /* Default to 6 items per row */
+}
+
+.category-app-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Link styling */
+.category-app-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Image container */
+.category-app-image-container {
+width: 100%;
+  padding: 0 auto;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Image of the application */
+.category-app-image {
+  margin-top: 0.5rem ;
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  width: auto;
+  object-fit: cover;
+}
+
+/* Information about the application */
+.category-app-info {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.category-app-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.category-app-description {
+  font-size: 12px;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1200px) {
+  .category-app-card {
+    flex: 1 1 calc(100% / 5 - 20px); /* 5 items per row for smaller screens */
+    max-width: calc(100% / 5 - 20px);
+  }
+}
+
+@media (max-width: 900px) {
+  .category-app-card {
+    flex: 1 1 calc(100% / 3 - 20px); /* 4 items per row for even smaller screens */
+    max-width: calc(100% / 3 - 20px);
+  }
+}
+
+@media (max-width: 600px) {
+  .category-app-card {
+    flex: 1 1 calc(100% / 2 - 20px); /* 3 items per row for small screens */
+    max-width: calc(100% / 2 - 20px);
+  }
+}
+
+@media (max-width: 400px) {
+  .category-app-card {
+    flex: 1 1 calc(100% / 1 - 20px); /* 2 items per row for very small screens */
+    max-width: calc(100% / 1 - 20px);
+  }
+}
+
+
+</style>
+
+<% layout('layouts/boilerplate') %>
+<div class="category-page-container">
+  <h1 class="category-heading">Applications for <%= category.charAt(0).toUpperCase() + category.slice(1) %></h1>
+  <div class="category-application-list">
+    <% listings.forEach(listing => { %>
+      <div class="category-app-card">
+        <a href="/home/download/<%= listing._id %>" class="category-app-link">
+          <div class="category-app-image-container">
+            <img src="<%= listing.image %>" alt="<%= listing.title %>" class="category-app-image">
+          </div>
+          <div class="category-app-info">
+            <p class="category-app-title"><%= listing.title %></p>
+            <p class="category-app-description"><%= listing.shortdescription %></p>
+          </div>
+        </a>
+      </div>
+    <% }); %>
+  </div>
+</div>
+
