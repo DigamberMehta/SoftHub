@@ -26,7 +26,24 @@ const ListingSchema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
-  },
+    validate: {
+        validator: function(value) {
+            const validCategories = [
+                "Games",
+                "Browser",
+                "Music",
+                "Video",
+                "Productivity",
+                "Utilities",
+                "Security",
+                "lick",
+                "Other"
+            ];
+            return validCategories.some(cat => cat.toLowerCase() === value.toLowerCase());
+        },
+        message: props => `${props.value} is not a valid category!`
+    }
+},
 
   platform: {
     type: [String],

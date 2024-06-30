@@ -400,12 +400,7 @@ border: 2px solid beige;
     margin-right: 10px; /* Adjust based on your logo size */
   }
   
-  .rating-stars {
-    font-size: 30px;
-    cursor: pointer;
-  }
-  
-  
+
   .review-textarea {
     width: 300px;
     height: 150px;
