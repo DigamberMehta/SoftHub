@@ -43,8 +43,10 @@
   .image-box {
     display: flex;
     align-items: center;
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
   .image-box img {
     width: 100%;
@@ -76,29 +78,24 @@
 <div class="for">
   <h1>Results Related to "<%= searchTerm %>" :</h1>
 </div>
+
 <div class="results">
-  
   <% if (results.length > 0) { %> <% results.forEach(result => { %>
   <div class="listing">
+    <a href="/home/download/<%= result._id %>">
     <h2><%= result.title %></h2>
-    <div class="short-description">
-      <p><span> Description:</span> <%= result.shortdescription %></p>
-    </div>
     <div class="image-box">
       <img src="<%= result.image %>" alt="<%= result.title %>" />
     </div>
     <p><span>Size:</span> <%= result.size %> MB</p>
-    <p><span>Category:</span> <%= result.category %></p>
     <p><span>Platform:</span> <%= result.platform.join(', ') %></p>
     <p><span>Rating:</span> <%= result.rating %></p>
     <p><span>Downloads:</span> <%= result.downloadCount %></p>
-    <p>
-      <span>Price:</span> <%= result.isFree ? 'Free' : `${result.price.amount}
-      ${result.price.currency}` %>
-    </p>
+   </a>
   </div>
   <% }); %> <% } else { %>
   <p class="no-results">No results found.</p>
   <% } %>
 </div>
+
 </div></div>

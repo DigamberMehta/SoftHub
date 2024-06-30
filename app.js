@@ -13,6 +13,10 @@ const User = require('./models/user.js');
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
+const wrapAsync = require("./utils/wrapAsync");
+const ExpressError = require("./utils/ExpressError");
+const flash = require('connect-flash');
+
 
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -44,6 +48,7 @@ const sessionOptions = {
 };
 
 app.use(session(sessionOptions));
+app.use(flash());
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -56,18 +61,20 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use((req, res, next) => {
+  res.locals.successMessages = req.flash('success');
+  res.locals.errorMessages = req.flash('error');
+  next();
+});
 
-app.get("/demo", async (req, res) => {
-  let fakeUser = new User({
-     email: 'demo@gmail.com',
-     username: 'demo'
-  });
-let register =  await User.register(fakeUser, 'demoz');
-res.send(register);
-
-
-}
-);
+// app.get("/demo", async (req, res) => {
+//   let fakeUser = new User({
+//      email: 'demo@gmail.com',
+//      username: 'demo'
+//   });
+// let register =  await User.register(fakeUser, 'demoz');
+// res.send(register);
+// });
 
 app.use("/home", listingRouter);
 app.use("/home/download/:id/reviews", reviewRouter);
@@ -77,9 +84,8 @@ app.get("/", (req, res) => {
   res.redirect("/home");
 });
 
-app.get('/search/results', async (req, res) => {
+app.get('/search/results', wrapAsync( async (req, res) => {
   const searchTerm = req.query.q || '';
-
   if (!searchTerm.trim()) {
     return res.render('searchResults', { 
       searchTerm: searchTerm,
@@ -103,18 +109,19 @@ app.get('/search/results', async (req, res) => {
 
     res.render('searchResults', { 
       searchTerm: searchTerm,
-      results: results
+      results: results,
+
     });
   } catch (err) {
     console.error(err);
     res.status(500).send('Server Error');
   }
-});
+}));
 
 
 
 
-app.put("/api/listings/:id/incrementDownloadCount", async (req, res) => {
+app.put("/api/listings/:id/incrementDownloadCount", wrapAsync(async (req, res) => {
   try {
     const listing = await Listing.findById(req.params.id);
     if (!listing) {
@@ -129,11 +136,21 @@ app.put("/api/listings/:id/incrementDownloadCount", async (req, res) => {
     console.error(error);
     res.status(500).send('Internal Server Error');
   }
+}));
+
+app.all("*", (req, res, next) => {
+  next(new ExpressError("Page Not Found", 404));
+}
+);
+
+app.use((err, req, res, next) => {
+ let { statusCode = 500, message = 'Something went wrong' } = err;
+ res.status(statusCode).send(message);
 });
-
-
 
 const port = 3000;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
+
+

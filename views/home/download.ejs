@@ -1,5 +1,5 @@
 
-<% layout('layouts/boilerplate') %>
+<% layout('layouts/boilerplate') %> 
 <div class="page">
   <div class="mains Container __top">
     <div class="details">
@@ -21,7 +21,7 @@
           DOWNLOAD &nbsp;<i class="bx bx-download" style="color: #ffffff"></i>
         </button>
       </a>
-    </div>
+    </div> 
 
     
 
@@ -160,6 +160,7 @@
               <div class="review-card">
                 <div class="card-content">
                   <h5 class="card-title">Rating: <%= review.rating %></h5>
+                 
                   <p class="card-text"> Author : <%= review.author.username %></p>
                   <p class="card-text"><%= review.comment %></p>
                   <form action="/home/download/<%= listing.id%>/reviews/<%= review._id %>?_method=DELETE" method="POST">

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const User = require("../models/user");
 const passport = require("passport");
-const { saveRedirectUrl } = require("../middleware");
+// const { saveRedirectUrl } = require("../middleware"); // Ensure this middleware exists and is correctly exported
 
 router.get("/signup", (req, res) => {
   res.render("users/signup");
@@ -29,13 +29,14 @@ router.get("/login", (req, res) => {
 
 router.post(
   "/login",
-  saveRedirectUrl,
-  passport.authenticate("local", 
-  { failureRedirect: "/login" }),
+  passport.authenticate("local", {
+    failureRedirect: "/login",
+    failureFlash: true // Ensure this is configured if using connect-flash for messages
+  }),
   async (req, res) => {
-    console.log("redirectUrl", res.locals.redirectUrl);
-    let redirectUrl = res.locals.redirectUrl || "/home";
-    res.redirect(redirectUrl);
+    const returnTo = req.session.returnTo || '/';
+  delete req.session.returnTo; // Clean up session
+  res.redirect(returnTo);
   }
 );
 
