@@ -306,9 +306,10 @@
       <% let rowCount = 1; %>
       <% for (let category in listingsByCategory) { %>
           <div class="category-title">
-              <a href="Categories/<%= category.toUpperCase() %>/index.html">
-                  <h1 class="heading"><%= category.toUpperCase() %> ></h1>
-              </a>
+            <a href="/home/category/<%= category %>">
+              <h1 class="heading"><%= category.charAt(0).toUpperCase() + category.slice(1) %> ></h1>
+            </a>
+            
           </div>
           <div class="scroll-container">
               <div class="scroll-button left" onclick="scrollList('left', document.getElementById('row-<%= rowCount %>'))">
@@ -316,15 +317,19 @@
               </div>
               <div class="main" id="row-<%= rowCount %>">
                   <div class="download-list">
-                      <% for (let listing of listingsByCategory[category]) { %>
-                          <div class="box item1">
-                              <a href="/home/download/<%= listing._id %>" class="app">
+                      <% for (let listing of listingsByCategory[category]) { %>                    
+                        <div class="box item1">
+                          <a href="/home/download/<%= listing._id %>" class="app">
+                              <div class="image-container">
                                   <img src="<%= listing.image %>" alt="<%= listing.title %>">
-                                  <p class="name" style="text-align: center;"><%= listing.title %></p>
+                              </div>
+                              <div class="text-container">
+                                  <p class="name"><%= listing.title %></p>
                                   <p class="description"><%= listing.shortdescription %></p>
-                              </a>
-                          </div>
-                      <% } %>
+                              </div>
+                          </a>
+                        </div>
+                                              <% } %>
                   </div><!-- main -->
               </div>
               <div class="scroll-button right" onclick="scrollList('right', document.getElementById('row-<%= rowCount %>'))">
