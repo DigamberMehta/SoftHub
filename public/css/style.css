@@ -882,6 +882,7 @@ div::-webkit-scrollbar{
 .main {
   overflow-x: auto;
   scroll-behavior: smooth;
+  margin-top: 0.7rem;
 }
 
 .download-list {
@@ -894,129 +895,103 @@ div::-webkit-scrollbar{
   transition: transform 0.5s ease;
   overflow: visible;
   
+} 
+/* General Card Styles */
+/* Page container */
+.page-container {
+  padding: 20px;
+  background-color: #f8f9fa;
 }
 
-.box {
-  min-width: 100px;
-  width: 100px;
-  /* height: 100%; */
-  position: relative;
-  vertical-align: top;
-  margin: 0 10px 10px 0;
-  white-space: normal;
-  line-height: 1.2;
-  text-align: center;
+/* Heading for the category */
+.heading {
+  font-size: 24px;
+  margin-bottom: 20px;
 }
 
-.box .app {
+/* Container for the list of applications */
+.application-list {
+  display: flex;
+  gap: 20px;
+  /* Removed justify-content: center to align items to the left */
+}
+
+/* Card for each application */
+.app-card {
+  background-color: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   text-align: center;
+  flex: 1 1 calc(100% / 6 - 20px); /* Default to 6 items per row minus gap */
+  max-width: 180px; /* Default to 6 items per row */
+  min-width: 180px;
+}
+
+/* Link styling */
+.app-link {
   text-decoration: none;
-  display: block;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 }
 
-.box .app img {
-  width: 80px;
-  height: 80px;
-  object-fit: contain;
-  display: inline-block;
-  padding-top: 18px;
-  border: white;
-  border-radius: 10px;
-  transition: transform 0.3s ease;
-}
-
-.box .app .name {
-  margin: 0;
-  font-weight: 600;
-  padding-top: 4px;
-  font-size: 15px;
-}
-
-.box .app .description {
-  font-family: "geomanistregular", sans-serif;
-  color: #7f949a;
-  font-size: 10px;
-  margin-top: 5px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
+/* Image container */
+.app-image-container {
+  width: 100%;
+  padding: 0 auto;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   overflow: hidden;
 }
 
-.box .app img:hover {
-  transform: scale(1.1);
-  transform-origin: center;
-  transition: transform 0.3s ease-in-out;
-  backface-visibility: hidden;
+/* Image of the application */
+.app-image {
+  margin-top: 0.5rem;
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+  width: auto;
+  object-fit: cover;
 }
+
+/* Information about the application */
+.app-info {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.app-title {
+  font-size: 16px;
+  font-weight: bold;
+  margin: 0 0 8px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.app-description {
+  font-size: 12px;
+  color: #666;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+
 
 /*  */
 
-.mini-banner {
-  display: flex;
-  justify-content: space-between;
-  margin-left: 10px;
-  gap: 30px;
-  padding-top: 18px;
-  padding-bottom: 18px;
-}
 
-.pictures .app {
-  text-align: center;
-  text-decoration: none;
-  display: block;
-}
 
-.pictures .app img {
-  width: 450px;
-  height: 250px;
-  object-fit: cover;
-  display: inline-block;
-  border: 1px solid rgb(255, 255, 255);
-  border-radius: 10px;
-  transition: transform 0.3s ease;
-}
 
-.pictures .app .name {
-  margin: 0;
-  font-weight: 600;
-  color: #0c0b0b;
-  text-align: start !important;
-  padding-top: 4px;
-  font-size: 18px;
-}
-
-.pictures .app .description {
-  font-family: "geomanistregular", sans-serif;
-  text-align: start !important;
-  color: #7f949a;
-  font-size: 12px;
-  margin-top: 5px;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* .pictures .app img:hover {
-    transform: scale(1.03);
-    transform-origin: center;
-    transition: transform 0.3s ease-in-out;
-    backface-visibility: hidden;
-} */
-
-@media screen and (max-width: 500px) {
-  .box .app img {
-    width: 80px;
-    height: 80px;
-  }
-}
-
-@media screen and (max-width: 1000px) {
-  .app .name {
-    font-size: 18px;
-  }
-}
 
 @media screen and (max-width: 991px) {
   #bodyy {
@@ -1029,39 +1004,6 @@ div::-webkit-scrollbar{
     padding-bottom: 20px;
   }
 }
-
-@media screen and (max-width: 770px) {
-  .app img {
-    width: 62px;
-    height: 65px;
-    object-fit: contain;
-  }
-
-  .app {
-    text-align: center;
-    margin-right: 0px;
-    margin-bottom: 10px;
-    text-decoration: none;
-  }
-
-  .app .name {
-    margin: 0;
-    font-weight: bold;
-    padding-top: 16px;
-    font-size: 14px;
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
 
 
 

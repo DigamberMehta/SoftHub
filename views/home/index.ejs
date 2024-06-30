@@ -317,18 +317,23 @@
               </div>
               <div class="main" id="row-<%= rowCount %>">
                   <div class="download-list">
-                      <% for (let listing of listingsByCategory[category]) { %>                    
-                        <div class="box item1">
-                          <a href="/home/download/<%= listing._id %>" class="app">
-                              <div class="image-container">
-                                  <img src="<%= listing.image %>" alt="<%= listing.title %>">
-                              </div>
-                              <div class="text-container">
-                                  <p class="name"><%= listing.title %></p>
-                                  <p class="description"><%= listing.shortdescription %></p>
-                              </div>
+
+                      <% for (let listing of listingsByCategory[category]) { %>  
+                                          
+                        <div class="app-card">
+                          <a href="/home/download/<%= listing._id %>" class="app-link">
+                            <div class="app-image-container">
+                              <img src="<%= listing.image %>" alt="<%= listing.title %>" class="app-image">
+                            </div>
+                            <div class="app-info">
+                              <p class="app-title"><%= listing.title %></p>
+                              <p class="app-description"><%= listing.shortdescription %></p>
+                            </div>
                           </a>
                         </div>
+                        
+              
+                        
                                               <% } %>
                   </div><!-- main -->
               </div>
@@ -343,40 +348,7 @@
 
       
 
-      <div class="section-3rd">
-        <div class="category-tittle">
-          <a href="Categories/GAMES/index.html">
-            <h1 class="heading">GAMES ></h1>
-          </a>
-        </div>
-        <div class="scroll-container">
-          <div class="scroll-button left"
-            onclick="scrollList('left', document.getElementById('thirdRow'))">
-            <img src="main-assests/images/right.svg" alt="Left Arrow">
-          </div>
-          <div class="main" id="thirdRow">
-            <div class="download-list">
-              <div class="mini-banner">
-
-                <div class="pictures picture1"> <a href class="app"
-                    target="_blank">
-                    <img src="main-assests/app-icon/battleground-india.jpg" alt>
-                    <p class="name" style="text-align: center;">Phantom PDF</p>
-                    <p class="description">Foxit's powerful PDF editing
-                      solution.</p>
-                  </a>
-                </div>
-
-              </div>
-            </div> <!-- d-list -->
-
-          </div><!--main  -->
-          <div class="scroll-button right"
-            onclick="scrollList('right', document.getElementById('thirdRow'))">
-            <img src="main-assests/images/right.svg" alt="Right Arrow">
-          </div>
-        </div> <!-- scroll -->
-      </div>
+   
       </section>
 
     </body>
@@ -389,4 +361,3 @@
         });
       });
     </script>
-    
