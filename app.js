@@ -75,6 +75,46 @@ app.use((req, res, next) => {
 // let register =  await User.register(fakeUser, 'demoz');
 // res.send(register);
 // });
+const categoryIcons = {
+  'navigation': '/images/menu-icon/bx-book-content.svg',
+  'communication': '/images/menu-icon/bx-chat.svg',
+  'audio': '/images/menu-icon/bx-music.svg',
+  'antivirus': '/images/menu-icon/bx-shield.svg',
+  'video': '/images/menu-icon/bx-video.svg',
+  'browser': '/images/menu-icon/bxl-chrome.svg',
+  'utilities': '/images/menu-icon/bxs-cog.svg',
+  'education': '/images/menu-icon/bxs-graduation.svg',
+  'travel': '/images/menu-icon/bxs-plane.svg',
+  'games': '/images/menu-icon/game-solid-48.png'
+};
+
+// Middleware to add categoryIcons to res.locals
+app.use((req, res, next) => {
+  res.locals.categoryIcons = categoryIcons;
+  next();
+});
+app.use(async (req, res, next) => {
+  try {
+    // Fetch all listings
+    const allListings = await Listing.find({});
+
+    // Group listings by category
+    const listingsByCategory = allListings.reduce((acc, listing) => {
+      if (!acc[listing.category]) {
+        acc[listing.category] = [];
+      }
+      acc[listing.category].push(listing);
+      return acc;
+    }, {});
+
+    // Set listingsByCategory on res.locals
+    res.locals.listingsByCategory = listingsByCategory;
+    next();
+  } catch (error) {
+    console.error(error);
+    next(error); // Pass error to Express error handler
+  }
+});
 
 app.use("/home", listingRouter);
 app.use("/home/download/:id/reviews", reviewRouter);

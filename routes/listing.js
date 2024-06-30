@@ -14,7 +14,6 @@ const { isLoggedIn } = require("../middleware");
 //   };
  
 
-
   
 router.get("/", async (req, res) => {
   try {
@@ -37,6 +36,10 @@ router.get("/", async (req, res) => {
       res.status(500).send('Server Error');
   }
 });
+
+
+
+
 
 
   

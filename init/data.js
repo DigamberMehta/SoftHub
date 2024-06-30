@@ -185,7 +185,7 @@ const sampleListings = [
     image: "https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/visual-studio-code-icon.png",
     size: 700,
     url: "https://code.visualstudio.com/docs/?dv=win64user",
-    category: "lick".toLowerCase(),
+    category: "browser".toLowerCase(),
     platform: ["Windows", "MacOS"],
     rating: 4.8,
     downloadCount: 0,

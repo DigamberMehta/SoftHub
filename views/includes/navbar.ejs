@@ -31,7 +31,7 @@
           <!-- <img src="images/sidebar-img/bx-chat.svg" alt="Boxcoin Icon" class="icon"> -->
           <span class="list-name" style="font-size: 1.4rem;">Platform</span>
           <div class="right-arrow-img">
-            <img src="main-assests/card-img/right-arrow.svg" alt width="30px" height="30px">
+            <img src="/images/menu-icon/right-arrow.svg" alt width="30px" height="30px">
           </div>
         </a>
       </li>
@@ -40,7 +40,7 @@
 
         <li class="platformss">
           <a href="platform/android/index.html" class="platform-sidebar-link">
-            <img src="main-assests/images/sidebar-img/bxl-android.svg" alt="Boxcoin Icon" class="platform-icon">
+            <img src="/images/menu-icon/bxl-android.svg" alt="Boxcoin Icon" class="platform-icon">
             <span class="platform-list-name">Android</span>
 
           </a>
@@ -48,7 +48,7 @@
 
         <li class="platformss">
           <a href="platform/Apple/index.html" class="platform-sidebar-link">
-            <img src="main-assests/images/sidebar-img/bxl-apple.svg" alt="Boxcoin Icon" class="platform-icon"
+            <img src="/images/menu-icon/bxl-apple.svg" alt="Boxcoin Icon" class="platform-icon"
               width="35px" height="35px">
             <span class="platform-list-name">MacOS</span>
 
@@ -56,7 +56,7 @@
         </li>
         <li class="platformss">
           <a href="platform/window/index.html" class="platform-sidebar-link">
-            <img src="main-assests/images/sidebar-img/bxl-windows.svg" alt="Boxcoin Icon" class="platform-icon">
+            <img src="/images/menu-icon/bxl-windows.svg" alt="Boxcoin Icon" class="platform-icon">
             <span class="platform-list-name">Windows</span>
 
           </a>
@@ -64,115 +64,20 @@
       </div>
       <hr>
 
-      <li class="content-list">
-        <a href="Categories/COMMUNICATION/index.html" class="sidebar-link">
-          <img src="main-assests/images/sidebar-img/bx-chat.svg" alt="Boxcoin Icon" class="icon">
-          <span class="list-name"> Communication</span>
-          <div class="right-arrow-img">
-            <img src="main-assests/card-img/right-arrow.svg" alt width="30px" height="30px">
-          </div>
-        </a>
-      </li>
+      <% for (let category in listingsByCategory) { %>
+        <li class="content-list">
+          <a href="/home/category/<%= category %>" class="sidebar-link">
+            <img src="<%= categoryIcons[category] || '/images/menu-icon/default-icon.svg' %>" alt="Category Icon" class="icon">
+            <span class="list-name"><%= category.charAt(0).toUpperCase() + category.slice(1) %></span>
+            <div class="right-arrow-img">
+              <img src="/images/menu-icon/right-arrow.svg" alt="Right Arrow" width="30px" height="30px">
+            </div>
+          </a>
+        </li>
+      <% } %>
+      
 
-      <li class="content-list">
-        <a href="Categories/PDFEDITOR/index.html" class="sidebar-link">
-          <img src="main-assests/images/sidebar-img/bx-chat.svg" alt="Boxcoin Icon" class="icon">
-          <span class="list-name"> Pdf Editor</span>
-          <div class="right-arrow-img">
-            <img src="main-assests/card-img/right-arrow.svg" alt width="30px" height="30px">
-          </div>
-        </a>
-      </li>
-
-      <li class="content-list">
-        <a href="Categories/GAMES/index.html" class="sidebar-link">
-          <img src="main-assests/images/sidebar-img/game-solid-48.png" alt="Boxcoin Icon" class="icon">
-          <span class="list-name">Games</span>
-          <div class="right-arrow-img">
-            <img src="main-assests/card-img/right-arrow.svg" alt width="30px" height="30px">
-          </div>
-        </a>
-      </li>
-
-      <li class="content-list">
-        <a href="Categories/ANTIVIRUS/index.html" class="sidebar-link">
-          <img src="main-assests/images/sidebar-img/bx-shield.svg" alt="Boxcoin Icon" class="icon">
-          <span class="list-name">Anti Virus</span>
-          <div class="right-arrow-img">
-            <img src="main-assests/card-img/right-arrow.svg" alt width="30px" height="30px">
-          </div>
-        </a>
-      </li>
-
-      <li class="content-list">
-        <a href="https://chromewebstore.google.com/" class="sidebar-link">
-          <img src="main-assests/images/sidebar-img/bxl-chrome.svg" alt="Boxcoin Icon" class="icon">
-          <span class="list-name">Chrome Extension</span>
-          <div class="right-arrow-img">
-            <img src="main-assests/card-img/right-arrow.svg" alt width="30px" height="30px">
-          </div>
-        </a>
-      </li>
-
-      <li class="content-list">
-        <a href="#" class="sidebar-link">
-          <img src="main-assests/images/sidebar-img/bxs-cog.svg" alt="Boxcoin Icon" class="icon">
-          <span class="list-name">Utilities</span>
-          <div class="right-arrow-img">
-            <img src="main-assests/card-img/right-arrow.svg" alt width="30px" height="30px">
-          </div>
-        </a>
-      </li>
-
-      <li class="content-list">
-        <a href="#" class="sidebar-link">
-          <img src="main-assests/images/sidebar-img/bx-video.svg" alt="Boxcoin Icon" class="icon">
-          <span class="list-name">Video</span>
-          <div class="right-arrow-img">
-            <img src="main-assests/card-img/right-arrow.svg" alt width="30px" height="30px">
-          </div>
-        </a>
-      </li>
-
-      <li class="content-list">
-        <a href="#" class="sidebar-link">
-          <img src="main-assests/images/sidebar-img/bx-music.svg" alt="Boxcoin Icon" class="icon">
-          <span class="list-name">Music</span>
-          <div class="right-arrow-img">
-            <img src="main-assests/card-img/right-arrow.svg" alt width="30px" height="30px">
-          </div>
-        </a>
-      </li>
-
-      <li class="content-list">
-        <a href="#" class="sidebar-link">
-          <img src="main-assests/images/sidebar-img/bx-book-content.svg" alt="Boxcoin Icon" class="icon">
-          <span class="list-name">Navigation</span>
-          <div class="right-arrow-img">
-            <img src="main-assests/card-img/right-arrow.svg" alt width="30px" height="30px">
-          </div>
-        </a>
-      </li>
-
-      <li class="content-list">
-        <a href="#" class="sidebar-link">
-          <img src="main-assests/images/sidebar-img/bxs-plane.svg" alt="Boxcoin Icon" class="icon">
-          <span class="list-name">Tour & Travel</span>
-          <div class="right-arrow-img">
-            <img src="main-assests/card-img/right-arrow.svg" alt width="30px" height="30px">
-          </div>
-        </a>
-      </li>
-
-      <li class="content-list">
-        <a href="#" class="sidebar-link">
-          <img src="main-assests/images/sidebar-img/bxs-graduation.svg" alt="Boxcoin Icon" class="icon">
-          <span class="list-name">Education</span>
-          <div class="right-arrow-img">
-            <img src="main-assests/card-img/right-arrow.svg" alt width="30px" height="30px">
-          </div>
-        </a>
-      </li>
+    
 
     </div>
 

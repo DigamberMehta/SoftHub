@@ -36,7 +36,12 @@ const ListingSchema = new mongoose.Schema({
                 "Productivity",
                 "Utilities",
                 "Security",
-                "lick",
+                "Education",
+                "Communication",
+                "Navigation",
+                "Antivirus",
+                "Audio",
+                "Travel",
                 "Other"
             ];
             return validCategories.some(cat => cat.toLowerCase() === value.toLowerCase());
