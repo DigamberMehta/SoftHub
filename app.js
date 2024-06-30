@@ -123,8 +123,13 @@ app.get('/search/results', wrapAsync( async (req, res) => {
 
 app.put("/api/listings/:id/incrementDownloadCount", wrapAsync(async (req, res) => {
   try {
-    const listing = await Listing.findById(req.params.id);
+    const listingId = req.params.id;
+
+    console.log(`Incrementing download count for listing ID: ${listingId}`);
+
+    const listing = await Listing.findById(listingId);
     if (!listing) {
+      console.log('Listing not found');
       return res.status(404).send('Listing not found');
     }
 
@@ -133,10 +138,11 @@ app.put("/api/listings/:id/incrementDownloadCount", wrapAsync(async (req, res) =
 
     res.status(200).send('Download count incremented');
   } catch (error) {
-    console.error(error);
+    console.error('Error incrementing download count:', error);
     res.status(500).send('Internal Server Error');
   }
 }));
+
 
 app.all("*", (req, res, next) => {
   next(new ExpressError("Page Not Found", 404));

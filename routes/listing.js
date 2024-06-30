@@ -16,11 +16,27 @@ const { isLoggedIn } = require("../middleware");
 
 
   
-  router.get("/", async (req, res) => {
-    
-    const allListings = await Listing.find({});
-    res.render("home/index.ejs", { allListings });
-  });
+router.get("/", async (req, res) => {
+  try {
+      // Fetch all listings
+      const allListings = await Listing.find({});
+      
+      // Group listings by category
+      const listingsByCategory = allListings.reduce((acc, listing) => {
+          if (!acc[listing.category]) {
+              acc[listing.category] = [];
+          }
+          acc[listing.category].push(listing);
+          return acc;
+      }, {});
+
+      // Render the view with all required data
+      res.render("home/index.ejs", { allListings, listingsByCategory });
+  } catch (error) {
+      console.error(error);
+      res.status(500).send('Server Error');
+  }
+});
   
   router.get("/download/:id", async (req, res) => {
     const { id } = req.params;

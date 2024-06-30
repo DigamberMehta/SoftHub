@@ -34,16 +34,18 @@ router.post(
     failureFlash: true // Ensure this is configured if using connect-flash for messages
   }),
   async (req, res) => {
-    const returnTo = req.session.returnTo || '/';
-  delete req.session.returnTo; // Clean up session
-  res.redirect(returnTo);
+    req.flash("success", `Welcome back, ${req.user.username}!`);
+    res.redirect("/home");
   }
 );
 
 router.get("/logout", (req, res, next) => {
+  let user = req.user.username;
   req.logout((err) => {
     if (err) return next(err);
+    req.flash("success", `Logout from, ${user}!`);
     res.redirect("/home");
+
   });
 });
 

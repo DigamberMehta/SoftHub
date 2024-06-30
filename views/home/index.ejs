@@ -148,26 +148,32 @@
           </tr>
         </thead>
         <tbody>
-
-          <% allListings.sort((a, b) => b.downloadCount - a.downloadCount); %>
-<% for (let i = 0; i < allListings.length; i++) { %>
-  <% let listing = allListings[i]; %>
-  <% if (listing.platform.includes('Windows')) { %>
-    <tr class="top-download-items"
-        onclick="window.location.href='<%= listing.url %>';"
-        style="cursor: pointer;">
-      <td class="item-rank"><%= i + 1 %></td>
-      <td class="item-image"><img src="<%= listing.image %>"
-          alt="<%= listing.title %> Image" width="50"
-          height="50"></td>
-      <td class="item-name"><%= listing.title %></td>
-      <td class="item-size"><%= listing.size %></td>
-      <td class="item-rating"><%= listing.rating %></td>
-      <td class="item-downloads"><%= listing.downloadCount %></td>
-      <td><button class="item-download-btn" style="margin-left: 15px;" onclick="incrementDownloadCount('<%= listing._id %>')">Download</button></td>
-    </tr>
-  <% } %>
-<% } %>
+          <%
+          allListings.sort((a, b) => b.downloadCount - a.downloadCount);
+          const topListings = allListings.slice(0, 3);
+        %>
+        
+        <% for (let i = 0; i < topListings.length; i++) { %>
+          <% let listing = topListings[i]; %>
+          <% if (listing.platform.includes('Windows')) { %>
+            <tr class="top-download-items" data-url="/home/download/<%= listing._id %>" style="cursor: pointer;">
+              <td class="item-rank"><%= i + 1 %></td>
+              <td class="item-image">
+                <img src="<%= listing.image %>" alt="<%= listing.title %> Image" width="50" height="50">
+              </td>
+              <td class="item-name"><%= listing.title %></td>
+              <td class="item-size"><%= listing.size %></td>
+              <td class="item-rating"><%= listing.rating %></td>
+              <td class="item-downloads"><%= listing.downloadCount %></td>
+              <td>
+                <button class="item-download-btn" style="margin-left: 15px;">Download</button>
+              </td>
+            </tr>
+          <% } %>
+        <% } %>
+        
+        
+        
 
       
           
@@ -242,9 +248,8 @@
           <% for (let i = 0; i < allListings.length; i++) { %>
             <% let listing = allListings[i]; %>
             <% if (listing.platform.includes('Android')) { %>
-              <tr class="top-download-items"
-                  onclick="window.location.href='<%= listing.url %>';"
-                  style="cursor: pointer;">
+              <a href="">
+              <tr class="top-download-items"style="cursor: pointer;">
                 <td class="item-rank"><%= i + 1 %></td>
                 <td class="item-image"><img src="<%= listing.image %>"
                     alt="<%= listing.title %> Image" width="50"
@@ -253,8 +258,9 @@
                 <td class="item-size"><%= listing.size %></td>
                 <td class="item-rating"><%= listing.rating %></td>
                 <td class="item-downloads"><%= listing.downloadCount %></td>
-                <td><button class="item-download-btn" style="margin-left: 15px;" onclick="incrementDownloadCount('<%= listing._id %>')">Download</button></td>
+                <td><button class="item-download-btn" style="margin-left: 15px;">Download</button></td>
               </tr>
+            </a>
             <% } %>
           <% } %>
 
@@ -297,38 +303,38 @@
   <section class="center-95">
 
     <div class="section-list">
-      <div class="category-tittle">
-        <a href="Categories/BROWSER/index.html">
-          <h1 class="heading">BROWSER ></h1>
-        </a>
-      </div>
-      <div class="scroll-container">
-        <div class="scroll-button left"
-          onclick="scrollList('left', document.getElementById('row-1'))">
-          <img src="main-assests/images/right.svg" alt="Left Arrow">
-        </div>
-
-        <div class="main" id="row-1">
-          <div class="download-list">
-
-            
-            <% for(let listing of allListings) { %>
-              <div class="box item1">
-                <a href="/home/download/<%= listing._id %>" class="app">
-                  <img src="<%= listing.image %>" alt="CHROME">
-                  <p class="name" style="text-align: center;"><%= listing.title %></p>
-                  <p class="description"><%= listing.shortdescription %></p>
-                </a>
+      <% let rowCount = 1; %>
+      <% for (let category in listingsByCategory) { %>
+          <div class="category-title">
+              <a href="Categories/<%= category.toUpperCase() %>/index.html">
+                  <h1 class="heading"><%= category.toUpperCase() %> ></h1>
+              </a>
+          </div>
+          <div class="scroll-container">
+              <div class="scroll-button left" onclick="scrollList('left', document.getElementById('row-<%= rowCount %>'))">
+                  <img src="main-assests/images/right.svg" alt="Left Arrow">
               </div>
-            <% } %>
-            
-          </div><!--main  -->
-          <div class="scroll-button right"
-            onclick="scrollList('right', document.getElementById('row-1'))">
-            <img src="main-assests/images/right.svg" alt="Right Arrow">
-          </div><!--scroll -->
-        </div>
-      </div>
+              <div class="main" id="row-<%= rowCount %>">
+                  <div class="download-list">
+                      <% for (let listing of listingsByCategory[category]) { %>
+                          <div class="box item1">
+                              <a href="/home/download/<%= listing._id %>" class="app">
+                                  <img src="<%= listing.image %>" alt="<%= listing.title %>">
+                                  <p class="name" style="text-align: center;"><%= listing.title %></p>
+                                  <p class="description"><%= listing.shortdescription %></p>
+                              </a>
+                          </div>
+                      <% } %>
+                  </div><!-- main -->
+              </div>
+              <div class="scroll-button right" onclick="scrollList('right', document.getElementById('row-<%= rowCount %>'))">
+                  <img src="main-assests/images/right.svg" alt="Right Arrow">
+              </div><!-- scroll -->
+          </div>
+          <% rowCount++; %>
+      <% } %>
+  </div>
+  
 
       
 
@@ -369,3 +375,13 @@
       </section>
 
     </body>
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.top-download-items').forEach(row => {
+          row.addEventListener('click', function() {
+            window.location.href = this.getAttribute('data-url');
+          });
+        });
+      });
+    </script>
+    

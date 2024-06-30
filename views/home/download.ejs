@@ -21,7 +21,8 @@
           DOWNLOAD &nbsp;<i class="bx bx-download" style="color: #ffffff"></i>
         </button>
       </a>
-    </div> 
+    </div>
+    
 
     
 
@@ -176,3 +177,27 @@
   
   </div>
 </section>
+<script>
+  async function incrementDownloadCount(listingId) {
+    try {
+      const response = await fetch(`/api/listings/${listingId}/incrementDownloadCount`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+
+      const data = await response.text();
+      console.log(data); // Log response for debugging
+
+      // Optionally, you can update the UI or provide feedback to the user
+    } catch (error) {
+      console.error('Error incrementing download count:', error);
+      // Optionally, provide feedback to the user on error
+    }
+  }
+</script>
