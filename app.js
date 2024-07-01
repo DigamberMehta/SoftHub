@@ -33,6 +33,7 @@ app.use(bodyParser.json());
 
 // const MONGO_URI = "mongodb+srv://digamber2603:0Qhr4l72ne17bGxz@softhub-database.tjolecp.mongodb.net/?retryWrites=true&w=majority&appName=softhub-database";
 const dbUrl = process.env.ATLASDB_URL;
+console.log(dbUrl);
 
 main()
   .then(() => console.log("Connected to MongoDB"))
