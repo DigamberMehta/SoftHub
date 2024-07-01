@@ -16,14 +16,27 @@ const validateReview = (req, res, next) => {
 };
 
 // Review post
-router.post("/",isLoggedIn, validateReview, async (req, res) => {
+router.post("/", validateReview, async (req, res) => {
   const { id } = req.params;
   const { rating, comment } = req.body.review;
 
+  // Ensure the user is logged in
+  if (!req.isAuthenticated()) {
+    req.flash("error", "You need to be logged in to leave a review");
+    return res.redirect("/login");
+  }
+
   try {
+    // Validate review rating
+    if (rating < 1) {
+      req.flash("error", "Rating must be at least 1");
+      return res.redirect(`/home/download/${id}`);
+    }
+
     let listing = await Listing.findById(id);
     if (!listing) {
-      return res.status(404).send("Listing not found");
+      req.flash("error", "Listing not found");
+      return res.redirect(`/home/download/${id}`);
     }
 
     let review = new Review({ rating, comment });
@@ -37,10 +50,11 @@ router.post("/",isLoggedIn, validateReview, async (req, res) => {
 
     res.redirect(`/home/download/${id}`);
   } catch (error) {
-    res.flash("error", "Server Error, Error in adding review");
+    req.flash("error", "Server Error, Error in adding review");
     res.redirect(`/home/download/${id}`);
   }
 });
+
 
 // Review delete
 router.delete("/:reviewId",isLoggedIn, isReviewAuthor, async (req, res) => { 

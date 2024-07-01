@@ -223,8 +223,9 @@ app.all("*", (req, res, next) => {
 );
 
 app.use((err, req, res, next) => {
- let { statusCode = 500, message = 'Something went wrong' } = err;
- res.status(statusCode).send(message);
+  console.log(err);
+  req.flash('error', err);
+  return res.redirect('/home'); // Adjust this as needed
 });
 
 const port = 3000;

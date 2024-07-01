@@ -66,6 +66,18 @@ a{
   transform-origin: center;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+/* Default visibility (hidden) */
+.side-bar-signin {
+  display: none;
+}
+
+/* Visible only when screen width is less than 810px */
+@media (max-width: 810px) {
+  .side-bar-signin {
+    display: block;
+  }
+}
+
 
 /* .Container .__top {
   margin-top: 12px;
