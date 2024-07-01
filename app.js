@@ -1,7 +1,6 @@
 if (process.env.NODE_ENV !== "production") {
   require("dotenv").config();
  }
-
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -11,6 +10,7 @@ const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const bodyParser = require('body-parser');
 const session = require('express-session');
+const MongoStore = require('connect-mongo');
 const passport = require('passport');
 const LocalStrategy = require('passport-local');
 const User = require('./models/user.js');
@@ -43,7 +43,18 @@ async function main() {
   await mongoose.connect(dbUrl);
 }
 
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  crypto: {
+    secret : 'mysecret'
+  },
+  touchAfter: 24 * 3600 // time period in seconds
+});
+store.on("error", function(e) {
+  console.log("Session Store Error", e);
+});
 const sessionOptions = {
+  store,
   secret: 'mysecret',
   resave: false,
   saveUninitialized: true,
@@ -53,6 +64,8 @@ const sessionOptions = {
     maxAge: 1000 * 60 * 60 * 24 * 30
   }
 };
+
+
 
 app.use(session(sessionOptions));
 app.use(flash());
