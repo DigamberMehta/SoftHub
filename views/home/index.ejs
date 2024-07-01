@@ -5,7 +5,7 @@
 
   <section class="trending-content">
 
-    <h2 class="trending-heading">Trending content</h2>
+    <h2 class="trending-heading">Trending Content</h2>
 
     <div class="trending-item-boxes">
       <div class="trending-items">
@@ -150,7 +150,7 @@
         <tbody>
           <%
           allListings.sort((a, b) => b.downloadCount - a.downloadCount);
-          const topListings = allListings.slice(0, 3);
+          const topListings = allListings.slice(0, 6);
         %>
         
         <% for (let i = 0; i < topListings.length; i++) { %>
@@ -274,8 +274,9 @@
     <div class="card-container">
       <div class="card-container-list">
 <!-- card -->
+<% let count = 0; %>
 <% for(let listing of allListings) { %>
-  <% if (listing.title.length <= 10) { %>
+  <% if (listing.title.length <= 10 && count < 5) { %>
     <div class="card-list">
       <div class="card-app">
         <a href="/home/download/<%= listing._id %>">
@@ -292,6 +293,7 @@
         <div class="card-rating"><%= listing.rating %></div>
       </div>
     </div>
+    <% count++; %>
   <% } %>
 <% } %>
 
@@ -326,7 +328,7 @@
                             <div class="app-image-container">
                               <img src="<%= listing.image %>" alt="<%= listing.title %>" class="app-image">
                             </div>
-                            <div class="app-info">
+                            <div class="app-infos">
                               <p class="app-title"><%= listing.title %></p>
                               <p class="app-description"><%= listing.shortdescription %></p>
                             </div>

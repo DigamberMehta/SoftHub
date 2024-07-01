@@ -138,16 +138,63 @@
     </div>
   </nav>
 
+ 
+
+
   <nav class="secondary-nav">
     <div class="new-search-container">
-      <div class="new-search-text-area">
-        <input type="text" placeholder="New Search..." id="new-search-input">
-      </div>
-      <div id="new-search-icon">
-        <button type="button"><i class="fa fa-search"></i></button>
-      </div>
-      <div id="new-close-search">
-        <button type="button" id="close-search">cancel</button>
-      </div>
+      <form action="/search/results" method="get" id="new-search-form" style="display: flex; align-items: center; width: 100%;">
+        <div class="new-search-text-area" style="flex: 1;">
+          <input type="text" name="q" placeholder="New Search..." id="new-search-input" required>
+        </div>
+        <div id="new-search-icon">
+          <button type="submit"><i class="fa fa-search"></i></button>
+        </div>
+        <div id="new-close-search">
+          <button type="button" id="close-search">cancel</button>
+        </div>
+      </form>
     </div>
   </nav>
+  
+  
+
+  
+
+  <script>
+$(document).ready(function(){
+  var secondaryNavHeight = '19.2px';
+  var originalMarginTop = '0px';
+
+  $(".open-search").click(function(){
+    $(".secondary-nav").fadeIn();
+    $(".open-search").fadeOut();
+    $(".Container.__top").animate({ 'margin-top' : secondaryNavHeight });
+  });
+
+  $("#new-close-search").click(function(){
+    $(".secondary-nav").fadeOut(function() {
+      $(".open-search").fadeIn();
+      $(".Container.__top").animate({ 'margin-top' : originalMarginTop });
+    });
+  });
+
+  $(window).resize(function(){
+    if ($(window).width() > 810) {
+      $(".secondary-nav").fadeOut();
+      $(".Container.__top").animate({ 'margin-top' : originalMarginTop });
+    } else {
+      $(".open-search").fadeIn();
+    }
+  });
+
+  $("#new-search-form").submit(function(event) {
+    // This will ensure the form is submitted correctly
+    if ($("#new-search-input").val().trim() === "") {
+      event.preventDefault(); // Prevent form submission if the input is empty
+    }
+  });
+});
+
+
+  </script>

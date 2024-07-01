@@ -37,8 +37,8 @@ router.post("/",isLoggedIn, validateReview, async (req, res) => {
 
     res.redirect(`/home/download/${id}`);
   } catch (error) {
-    console.error("Error adding review:", error);
-    res.status(500).send("Server error");
+    res.flash("error", "Server Error, Error in adding review");
+    res.redirect(`/home/download/${id}`);
   }
 });
 

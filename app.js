@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== "production") {
+  require("dotenv").config();
+ }
+
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -24,16 +28,18 @@ app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
-const MONGO_URI = "mongodb://127.0.0.1:27017/Softhub";
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+// const MONGO_URI = "mongodb+srv://digamber2603:0Qhr4l72ne17bGxz@softhub-database.tjolecp.mongodb.net/?retryWrites=true&w=majority&appName=softhub-database";
+const dbUrl = process.env.ATLASDB_URL;
 
 main()
   .then(() => console.log("Connected to MongoDB"))
   .catch((err) => console.log(err));
 
 async function main() {
-  await mongoose.connect(MONGO_URI);
+  await mongoose.connect(dbUrl);
 }
 
 const sessionOptions = {

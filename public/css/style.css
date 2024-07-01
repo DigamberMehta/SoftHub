@@ -221,7 +221,6 @@ a{
 
 
 .secondary-nav {
-  background-color: rgb(245, 245, 245);
   padding: 10px;
   display: none;
 }
@@ -229,14 +228,12 @@ a{
 .new-search-container {
   display: flex;
   align-items: center;
-position: sticky;
+  position: sticky;
 }
 
 .new-search-text-area {
   flex: 1;
   margin-right: 10px;
-  
-
 }
 
 #new-search-input {
@@ -253,9 +250,26 @@ position: sticky;
   margin-left: 10px;
 }
 
-.open-search{
+#new-search-icon button i {
+  color: #000; 
+  font-size: 20px;
+  margin-right: 5px;
+}
+
+#new-search-icon button,
+#new-close-search button {
+  border: none;
+  outline: none;
+  background: none;
+  padding: 0;
+}
+
+#new-close-search button {
+  font-size: large;
+}
+
+.open-search {
   display: none;
- 
 }
 
 .open-search button {
@@ -271,22 +285,8 @@ position: sticky;
   margin-right: 5px;
 }
 
-#new-search-icon button i {
-  color: #000; 
-  font-size: 20px;
-  margin-right: 5px;
-}
 
-#new-search-icon button,
-#new-close-search button {
-  border: none;
-  outline: none;
-  background: none;
-  padding: 0;
-}
-#new-close-search button {
-  font-size: large;
-}
+
 
 @media screen and (max-width: 810px) {
   .logo{
@@ -908,7 +908,6 @@ div::-webkit-scrollbar{
   font-size: 24px;
   margin-bottom: 20px;
 }
-
 /* Container for the list of applications */
 .application-list {
   display: flex;
@@ -916,18 +915,21 @@ div::-webkit-scrollbar{
   /* Removed justify-content: center to align items to the left */
 }
 
+
+
 /* Card for each application */
 .app-card {
   background-color: #ffffff;
   border: 1px solid #ddd;
   border-radius: 8px;
-  overflow: hidden;
+  overflow: hidden; /* Ensure child elements respect the border radius */
   display: flex;
   flex-direction: column;
   text-align: center;
   flex: 1 1 calc(100% / 6 - 20px); /* Default to 6 items per row minus gap */
   max-width: 180px; /* Default to 6 items per row */
   min-width: 180px;
+  height: 245px;
 }
 
 /* Link styling */
@@ -942,30 +944,28 @@ div::-webkit-scrollbar{
 /* Image container */
 .app-image-container {
   width: 100%;
-  padding: 0 auto;
-  height: 150px;
+  height: 150px; /* Fixed height for uniform image size */
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow: hidden; /* Ensure child elements respect the border radius */
 }
 
-/* Image of the application */
 .app-image {
-  margin-top: 0.5rem;
-  max-width: 100%;
-  max-height: 100%;
-  height: auto;
-  width: auto;
-  object-fit: cover;
+  /* border-radius: 10px; */
+  width: 100%;
+  margin-top: 5px;
+  height: 140px;
+  object-fit: contain;
+  border-radius: 8px !important;
 }
 
-/* Information about the application */
-.app-info {
+.app-infos {
   padding: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  flex-grow: 1; /* Ensures the info section takes up the remaining space */
 }
 
 .app-title {

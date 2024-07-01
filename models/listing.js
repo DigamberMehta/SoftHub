@@ -79,7 +79,6 @@ const ListingSchema = new mongoose.Schema({
   // License details instead of a single string
   license: {
     type: String,
-    enum: ["Open-Source", "Proprietary", "Other"], // Add more as needed
   },
 
   tags: [String],
